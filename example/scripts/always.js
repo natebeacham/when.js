@@ -1,0 +1,1 @@
+addItem('The JavaScript to show me was added on page load.', 'always');

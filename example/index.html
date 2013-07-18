@@ -1,0 +1,48 @@
+<!doctype html5>
+<html>
+	<head>
+		<title>when.js</title>
+
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="css/example.css">
+
+		<script language="javascript" src="../src/when.js"></script>
+
+		<script language="javascript">
+			function addItem(message, cls) {
+				var body = document.getElementsByTagName('body')[0];
+				var d = document.createElement('d');
+				d.innerHTML = message;
+				d.className = 'notify ' + cls;
+				body.appendChild(d);
+			}
+
+			When({
+				'*': ['scripts/always.js'],
+				'delay 3000': ['scripts/delay.js'],
+				'in #section-two': ['scripts/in.js'],
+				'click #section-one': ['scripts/click.js']
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="wrap">
+			<section>
+				<h1>when.js</h1>
+			</section>
+
+			<section id="section-one">
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tempus dignissim nisl, quis ullamcorper dui hendrerit in. Nunc ac pretium enim. Phasellus lobortis diam quis neque sodales auctor. Nullam gravida pellentesque faucibus. Integer consectetur orci nunc. Suspendisse tempus lectus eget sem ullamcorper, eu tincidunt mi imperdiet. Sed non nunc id dui interdum pharetra. Duis quis felis turpis. Mauris nibh massa, bibendum id euismod a, hendrerit et odio. In in sem consequat, lacinia est eget, placerat magna.
+			</section>
+
+			<section id="section-two">
+				Aliquam eget venenatis felis, sed facilisis sem. Curabitur sollicitudin elit porttitor laoreet fringilla. Pellentesque et tellus laoreet, tincidunt quam ac, semper arcu. Nunc adipiscing enim quis condimentum elementum. Phasellus nulla justo, vestibulum nec massa a, auctor venenatis lacus. Aliquam elementum ut ligula blandit rhoncus. Proin risus tellus, tristique quis neque id, consequat dapibus lorem. Integer quis magna eros. Curabitur dignissim, lectus non fringilla cursus, sapien augue consequat enim, a euismod urna tellus sed ligula.
+			</section>
+
+			<section id="section-three">
+				Proin sagittis placerat ligula a porttitor. Vivamus nec augue aliquam, fermentum nibh sed, sodales diam. Duis dignissim tellus sit amet consectetur lobortis. Sed vel lacinia nibh. Sed pharetra diam non dolor molestie, eu consectetur justo rutrum. Fusce nec nunc eu lacus aliquam euismod. Nulla vitae felis quis eros fringilla convallis. Ut pulvinar dictum orci, ac ullamcorper odio scelerisque sit amet. Phasellus feugiat, tortor id faucibus interdum, metus lacus sagittis erat, cursus rutrum mauris elit egestas quam.
+			</section>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,1 @@
+addItem('The JavaScript to show me was added after hovering over an element.', 'in');

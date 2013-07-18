@@ -1,0 +1,47 @@
+html, body {
+  background: whitesmoke;
+  line-height: 24px; }
+
+h1 {
+  margin: 0;
+  padding: 0;
+  text-align: center; }
+
+.wrap {
+  margin: 40px auto;
+  width: 600px; }
+
+section {
+  color: #333333;
+  background: white;
+  margin: 20px 0;
+  padding: 30px;
+  border: 1px solid #eeeeee;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); }
+
+.notify {
+  position: fixed;
+  _position: absolute;
+  font-size: 12px;
+  padding: 5px 10px;
+  max-width: 200px;
+  background: black;
+  color: #dddddd;
+  font-weight: bold;
+  border-radius: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+  .notify.always {
+    top: 3%;
+    left: 3%; }
+  .notify.delay {
+    top: 3%;
+    right: 3%; }
+  .notify.in {
+    top: 16%;
+    right: 3%; }
+
+#section-one {
+  cursor: pointer; }
+
+#section-two:hover {
+  background: #eeeeff; }
