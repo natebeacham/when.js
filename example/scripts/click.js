@@ -1,0 +1,1 @@
+addItem('The JavaScript to show me was added after clicking on an element.', 'click');

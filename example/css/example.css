@@ -39,6 +39,9 @@ section {
   .notify.in {
     top: 16%;
     right: 3%; }
+  .notify.click {
+    top: 16%;
+    left: 3%; }
 
 #section-one {
   cursor: pointer; }

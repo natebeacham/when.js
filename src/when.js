@@ -1,21 +1,9 @@
-function When(config) {
+var loadEvent = new Event('whenloaded');
+
+When = function(config) {
 	if (!config) {
 		return;
 	}
-
-	var loadScript = function(path) {
-		var head = document.getElementsByTagName('head')[0];
-		var s = document.createElement('script');
-		s.type = 'text/javascript';
-		s.src = path;
-		head.appendChild(s);
-	};
-
-	var loadScripts = function(paths) {
-		for (var i = 0; i < paths.length; i++) {
-			loadScript(paths[i]);
-		}
-	};
 
 	var defer = function(func, args) {
 		window.addEventListener('load', function() {
@@ -23,7 +11,7 @@ function When(config) {
 		});
 	};
 
-	var bindScript = function(hint, paths) {
+	var bindScript = function(hint, event, paths) {
 		if (hint[0] == '#') {
 			var el = document.getElementById(hint.substr(1));
 
@@ -41,15 +29,17 @@ function When(config) {
 		}
 
 		var listener = function() {
-			loadScripts(paths);
+			return function() {
+				When.load(paths);
 
-			for (var i = 0; i < elements.length; i++) {
-				elements[i].removeEventListener('mouseover', listener);
-			}			
+				for (var i = 0; i < elements.length; i++) {
+					elements[i].removeEventListener(event, listener);
+				}			
+			}
 		};
 
 		for (var i = 0; i < elements.length; i++) {
-			elements[i].addEventListener('mouseover', listener, false);
+			elements[i].addEventListener(event, listener(event), false);
 		}
 	};
 
@@ -60,18 +50,83 @@ function When(config) {
 
 		(function(key, paths) {
 			if (key == '*') {
-				loadScripts(paths);
+				When.load(paths);
 			}
 			else if (key.indexOf('delay ') == 0) {
 				var value = parseInt(key.split(' ')[1], 10);
 
 				setTimeout(function() {
-					loadScripts(paths);
+					When.load(paths);
 				}, value);
 			}
 			else if (key.indexOf('in ') == 0) {
-				defer(bindScript, [key.split(' ')[1], paths]);
+				defer(bindScript, [key.split(' ')[1], 'mouseover', paths]);
+			}
+			else if (key.indexOf('click ') == 0) {
+				defer(bindScript, [key.split(' ')[1], 'click', paths]);
 			}
 		})(key, config[key]);
+	}
+
+	When._initialized = true;
+	window.dispatchEvent(loadEvent);
+};
+
+When._initialized = false;
+
+When._packages = {};
+
+When._defaults = {
+	
+};
+
+When.loadScript = function(path) {
+	var head = document.getElementsByTagName('head')[0];
+	var tag = document.createElement('script');
+
+	tag.type = 'text/javascript';
+	tag.src = path;
+
+	head.appendChild(tag);
+};
+
+When.load = function(source) {
+	if (source in When._packages) {
+		for (var i = 0; i < When._packages[source].length; i++) {
+			When.loadScript(When._packages[source][i]);
+		}
+	}
+	else if (typeof source == 'string') {
+		When.loadScript(source);
+	}
+	else {
+		for (var i = 0; i < source.length; i++) {
+			When.loadScript(source[i]);
+		}
+	}
+};
+
+When.config = function(config) {
+	for (var key in config) {
+		if (When._defaults.hasOwnProperty(key)) { 
+			When._defaults[key] = config[key];
+		}
+	}
+};
+
+When.packages = function(config) {
+	for (var key in config) {
+		if (config.hasOwnProperty(key)) {
+			When._packages[key] = config[key];
+		}
+	}
+};
+
+When.ready = function(func) {
+	if (When._initialized) {
+		func();
+	}
+	else {
+		window.addEventListener(loadEvent, func);
 	}
 };

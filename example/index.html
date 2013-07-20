@@ -1,4 +1,4 @@
-<!doctype html5>
+<!doctype html>
 <html>
 	<head>
 		<title>when.js</title>
@@ -6,23 +6,34 @@
 		<link rel="stylesheet" type="text/css" href="css/normalize.css">
 		<link rel="stylesheet" type="text/css" href="css/example.css">
 
-		<script language="javascript" src="../src/when.js"></script>
+		<script language="javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script language="javascript" src="../src/when.min.js"></script>
 
 		<script language="javascript">
+
 			function addItem(message, cls) {
-				var body = document.getElementsByTagName('body')[0];
-				var d = document.createElement('d');
-				d.innerHTML = message;
-				d.className = 'notify ' + cls;
-				body.appendChild(d);
+				$('body').append($('<div>', {
+					'html': message,
+					'class': 'notify ' + cls
+				}));
 			}
 
-			When({
-				'*': ['scripts/always.js'],
-				'delay 3000': ['scripts/delay.js'],
-				'in #section-two': ['scripts/in.js'],
-				'click #section-one': ['scripts/click.js']
+
+			When.packages({
+				'always-pkg':	['scripts/always.js'],
+				'in-pkg':		['scripts/in.js'],
+				'click-pkg':	['scripts/click.js'],
+				'delay-pkg':	['scripts/delay.js']
 			});
+
+
+			When({
+				'*':					'always-pkg',
+				'delay 3000':			'delay-pkg',
+				'click #section-one':	'click-pkg',
+				'in #section-two':		'in-pkg'
+			});
+
 		</script>
 	</head>
 
