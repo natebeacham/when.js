@@ -19,7 +19,7 @@
 			}
 
 
-			When.packages({
+			__.packages({
 				'always-pkg':	['scripts/always.js'],
 				'in-pkg':		['scripts/in.js'],
 				'click-pkg':	['scripts/click.js'],
@@ -27,7 +27,7 @@
 			});
 
 
-			When({
+			__({
 				'*':					'always-pkg',
 				'delay 3000':			'delay-pkg',
 				'click #section-one':	'click-pkg',

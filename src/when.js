@@ -1,4 +1,4 @@
-var loadEvent = new Event('whenloaded');
+var wloadEvent = new Event('whenloaded');
 
 When = function(config) {
 	if (!config) {
@@ -69,16 +69,13 @@ When = function(config) {
 	}
 
 	When._initialized = true;
-	window.dispatchEvent(loadEvent);
+	window.dispatchEvent(wloadEvent);
 };
 
+When.version = When.__version__ = '0.1';
 When._initialized = false;
-
 When._packages = {};
-
-When._defaults = {
-	
-};
+When._defaults = {'alias': '__'};
 
 When.loadScript = function(path) {
 	var head = document.getElementsByTagName('head')[0];
@@ -110,6 +107,9 @@ When.config = function(config) {
 	for (var key in config) {
 		if (When._defaults.hasOwnProperty(key)) { 
 			When._defaults[key] = config[key];
+			if (key == 'alias') {
+				window[key] = window[key] || When;
+			}
 		}
 	}
 };
@@ -127,6 +127,12 @@ When.ready = function(func) {
 		func();
 	}
 	else {
-		window.addEventListener(loadEvent, func);
+		window.addEventListener(wloadEvent, func);
 	}
 };
+
+if (typeof window[When._defaults.alias] == 'undefined') {
+	window[When._defaults.alias] = When;
+}
+
+;
