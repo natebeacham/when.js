@@ -26,4 +26,4 @@ Then, tell when.js *when* to load these packages (and some other files):
 
 #### Demo
 
-A working example can be found at [http://beacham.ca/when.js](beacham.ca/when.js "when.js")
+A working example can be found at [beacham.ca/when.js](http://beacham.ca/when.js "when.js")
