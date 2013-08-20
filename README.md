@@ -1,4 +1,4 @@
-#### when.js
+## when.js
 
 A small library that provides smarter `<script>` loading / initialization.
 
@@ -21,6 +21,8 @@ Then, tell when.js *when* to load these packages (and some other files):
 		'click #some-button': ['button-action.js', 'thing.js'], // Loads some more scripts when a button is clicked
 		'in body': 'foo' // Loads 'foo' package when hovering over the body
 	});
+
+By default, a global object `__` is aliased to `When`. You can, of course, use `When` if `__` is already being used. when.js will try not to overwrite your variables.
 
 ***
 
